@@ -1,7 +1,6 @@
 // LA COMARCA KAYAKS
 
 // Precios
-
 const precioRecreativo = 750000;
 const precioFishing = 850000;
 const precioAguasRapidas = 750000;
@@ -9,13 +8,11 @@ const precioTravesia = 950000;
 const precioDoble = 1100000;
 
 // Variables
-
 let menu;
 let continuar = true;
 let precio = 0;
 
 // Menu
-
 alert('Bienvenido a "La Comarca Kayaks"');
 
 while (continuar) {
@@ -80,8 +77,8 @@ while (continuar) {
             console.log("Opción inválida");
     }
 
-    // Compra
 
+    // Compra
     if (precio > 0) {
 
         let cantidad = parseInt(
