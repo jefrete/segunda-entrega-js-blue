@@ -1,17 +1,626 @@
-<!doctype html>
+
+<!DOCTYPE html>
 <html lang="es">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#f8f6f0">
+  <meta name="description" content="Un espacio personal para compartir ideas, proyectos y todo lo que todavía está por venir.">
 
-    <!-- JS -->
-    <script defer src="main.js"></script>
+  <title>Mi mundo — Una historia en construcción</title>
 
-    <title>LA COMARCA KAYAKS</title>
-  </head>
+  <style>
+    :root {
+      --paper: #f8f6f0;
+      --ink: #202a25;
+      --muted: #68736b;
+      --green: #315b48;
+      --lime: #d8ee9a;
+      --line: rgba(32, 42, 37, .14);
+      --serif: Georgia, "Times New Roman", serif;
+      --sans: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
 
-  <body>
-    <h1>LA COMARCA KAYAKS</h1>
-    <p>Bienvenido a La Comarca Kayaks, el mejor lugar para comprar tu kayak</p>
-  </body>
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      color: var(--ink);
+      background: var(--paper);
+      font-family: var(--sans);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    button, a {
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .wrap {
+      width: min(1160px, 88%);
+      margin-inline: auto;
+    }
+
+    .nav {
+      height: 82px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 13px;
+      font-weight: 800;
+      letter-spacing: .12em;
+    }
+
+    .logo-mark {
+      display: grid;
+      place-items: center;
+      width: 35px;
+      height: 35px;
+      background: var(--green);
+      color: white;
+      border-radius: 50%;
+      font-family: var(--serif);
+      font-size: 19px;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 27px;
+      font-size: 13px;
+      color: var(--muted);
+    }
+
+    .nav-links a:hover {
+      color: var(--green);
+    }
+
+    .hero {
+      display: grid;
+      grid-template-columns: 1.08fr .92fr;
+      gap: 7%;
+      align-items: center;
+      min-height: 650px;
+      padding-block: 76px 100px;
+    }
+
+    .eyebrow {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: .18em;
+      font-weight: 750;
+      color: var(--green);
+    }
+
+    .dot {
+      width: 8px;
+      height: 8px;
+      background: #8bbd67;
+      border-radius: 50%;
+      box-shadow: 0 0 0 5px rgba(139, 189, 103, .15);
+    }
+
+    h1 {
+      margin: 26px 0;
+      max-width: 680px;
+      font-family: var(--serif);
+      font-weight: 400;
+      font-size: clamp(54px, 7.2vw, 100px);
+      letter-spacing: -.065em;
+      line-height: .99;
+    }
+
+    h1 em {
+      color: var(--green);
+      font-weight: 400;
+    }
+
+    .intro {
+      max-width: 450px;
+      color: var(--muted);
+      font-size: 17px;
+      line-height: 1.85;
+    }
+
+    .actions {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-top: 32px;
+    }
+
+    .button {
+      min-height: 48px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0 21px;
+      border: 1px solid var(--green);
+      border-radius: 5px;
+      background: var(--green);
+      color: white;
+      font-size: 13px;
+      font-weight: 650;
+      transition: transform .2s, background .2s;
+    }
+
+    .button:hover {
+      transform: translateY(-3px);
+      background: #244634;
+    }
+
+    .button.secondary {
+      color: var(--ink);
+      background: transparent;
+      border-color: var(--line);
+    }
+
+    .portrait-frame {
+      position: relative;
+      width: 100%;
+      max-width: 440px;
+      justify-self: end;
+      padding: 14px;
+      background: #e9e9dd;
+      border-radius: 180px 180px 9px 9px;
+      transform: rotate(1.5deg);
+    }
+
+    .portrait {
+      min-height: 460px;
+      border-radius: 170px 170px 5px 5px;
+      background:
+        radial-gradient(ellipse at 50% 34%, rgba(255,255,255,.35), transparent 45%),
+        linear-gradient(150deg, #cbd6c3, #a3b5a2 50%, #536f5c);
+      display: grid;
+      place-items: center;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .portrait img {
+      width: 100%;
+      height: 100%;
+      min-height: 460px;
+      position: absolute;
+      inset: 0;
+      object-fit: cover;
+    }
+
+    .portrait-placeholder {
+      text-align: center;
+      padding: 28px;
+      color: #244634;
+    }
+
+    .portrait-placeholder span {
+      display: block;
+      font-family: var(--serif);
+      font-size: 62px;
+      line-height: 1;
+      margin-bottom: 18px;
+    }
+
+    .portrait-placeholder p {
+      font-size: 12px;
+      line-height: 1.7;
+    }
+
+    .portrait-caption {
+      position: absolute;
+      bottom: 28px;
+      left: -35px;
+      max-width: 210px;
+      padding: 17px 20px;
+      background: var(--lime);
+      color: var(--ink);
+      border-radius: 4px;
+      font-family: var(--serif);
+      font-size: 18px;
+      line-height: 1.3;
+      transform: rotate(-3deg);
+    }
+
+    .section {
+      padding-block: 105px;
+      border-top: 1px solid var(--line);
+    }
+
+    .section-heading {
+      display: grid;
+      grid-template-columns: .7fr 1.3fr;
+      gap: 8%;
+      margin-bottom: 52px;
+    }
+
+    .section-label {
+      color: var(--green);
+      font-size: 11px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: .17em;
+      padding-top: 12px;
+    }
+
+    h2 {
+      margin: 0;
+      font-family: var(--serif);
+      font-size: clamp(37px, 5.5vw, 66px);
+      line-height: 1.08;
+      font-weight: 400;
+      letter-spacing: -.045em;
+    }
+
+    .section-copy {
+      max-width: 650px;
+      margin: 23px 0 0;
+      color: var(--muted);
+      font-size: 16px;
+      line-height: 1.9;
+    }
+
+    .manifesto {
+      background: var(--green);
+      color: #fffdf5;
+      border-radius: 8px;
+      padding: clamp(28px, 6vw, 75px);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .manifesto::after {
+      content: "✳";
+      position: absolute;
+      right: -20px;
+      bottom: -115px;
+      font-size: 300px;
+      line-height: 1;
+      color: rgba(255,255,255,.055);
+      pointer-events: none;
+    }
+
+    .manifesto .eyebrow {
+      color: var(--lime);
+    }
+
+    .manifesto h2 {
+      max-width: 820px;
+      margin-top: 28px;
+      font-size: clamp(36px, 5.7vw, 72px);
+    }
+
+    .manifesto p {
+      max-width: 590px;
+      color: rgba(255,255,255,.76);
+      line-height: 1.9;
+      font-size: 16px;
+      margin: 25px 0 0;
+    }
+
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 17px;
+    }
+
+    .card {
+      min-height: 245px;
+      padding: 27px;
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      display: flex;
+      flex-direction: column;
+      transition: transform .25s, background .25s;
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+      background: #fffef9;
+    }
+
+    .card-number {
+      color: var(--green);
+      font-family: var(--serif);
+      font-size: 25px;
+    }
+
+    .card h3 {
+      margin: auto 0 12px;
+      font-family: var(--serif);
+      font-size: 29px;
+      font-weight: 400;
+    }
+
+    .card p {
+      color: var(--muted);
+      line-height: 1.75;
+      font-size: 14px;
+      margin: 0;
+    }
+
+    .quote-section {
+      background: #eceee4;
+      border-radius: 8px;
+      padding: clamp(32px, 7vw, 85px);
+      text-align: center;
+    }
+
+    .quote-mark {
+      font-family: var(--serif);
+      font-size: 70px;
+      color: var(--green);
+      line-height: .8;
+    }
+
+    .quote-section blockquote {
+      max-width: 850px;
+      margin: 25px auto;
+      font-family: var(--serif);
+      font-size: clamp(29px, 4.4vw, 54px);
+      letter-spacing: -.035em;
+      line-height: 1.22;
+    }
+
+    .quote-section p {
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .contact {
+      padding-block: 105px 80px;
+      text-align: center;
+    }
+
+    .contact h2 {
+      max-width: 760px;
+      margin: 22px auto;
+    }
+
+    .contact p {
+      max-width: 500px;
+      margin: 0 auto;
+      color: var(--muted);
+      line-height: 1.8;
+    }
+
+    .contact .actions {
+      justify-content: center;
+    }
+
+    footer {
+      border-top: 1px solid var(--line);
+      padding-block: 25px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 15px;
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .reveal {
+      animation: appear .8s both;
+    }
+
+    .hero .reveal:nth-child(2) {
+      animation-delay: .12s;
+    }
+
+    @keyframes appear {
+      from { opacity: 0; transform: translateY(18px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: .01ms !important;
+        transition-duration: .01ms !important;
+        scroll-behavior: auto !important;
+      }
+    }
+
+    @media (max-width: 760px) {
+      .nav { height: 70px; }
+      .nav-links { gap: 13px; }
+      .nav-links a:first-child { display: none; }
+
+      .hero {
+        grid-template-columns: 1fr;
+        gap: 48px;
+        padding-block: 66px 75px;
+      }
+
+      h1 { font-size: clamp(55px, 14vw, 82px); }
+
+      .portrait-frame {
+        justify-self: center;
+        width: min(100%, 380px);
+      }
+
+      .portrait, .portrait img { min-height: 390px; }
+
+      .section { padding-block: 75px; }
+
+      .section-heading { grid-template-columns: 1fr; gap: 23px; }
+      .cards { grid-template-columns: 1fr; }
+      .card { min-height: 200px; }
+
+      footer {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <header class="wrap">
+    <nav class="nav" aria-label="Navegación principal">
+      <a class="logo" href="#inicio">
+        <span class="logo-mark">M</span>
+        <span>MI UNIVERSO</span>
+      </a>
+
+      <div class="nav-links">
+        <a href="#historia">Mi historia</a>
+        <a href="#proyectos">Proyectos</a>
+        <a href="#contacto">Contacto ↗</a>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero wrap" id="inicio">
+      <div class="reveal">
+        <div class="eyebrow"><span class="dot"></span> Una historia en construcción</div>
+
+        <h1>No vine a ser una copia. Vine a <em>crear.</em></h1>
+
+        <p class="intro">
+          Soy una persona con ideas, curiosidad y ganas de hacer cosas
+          que todavía no existen. Este es mi espacio para explorar,
+          aprender, crear y compartir mi propia mirada del mundo.
+        </p>
+
+        <div class="actions">
+          <a class="button" href="#historia">Conocé mi historia ↗</a>
+          <a class="button secondary" href="#proyectos">Lo que estoy creando</a>
+        </div>
+      </div>
+
+      <div class="portrait-frame reveal">
+        <div class="portrait">
+          <!-- Reemplazá este bloque por tu foto:
+          <img src="mi-foto.jpg" alt="Retrato personal">
+          -->
+          <div class="portrait-placeholder">
+            <span>Tu retrato</span>
+            <p>Este espacio es tuyo.<br>Una foto que te represente<br>va acá.</p>
+          </div>
+        </div>
+        <div class="portrait-caption">
+          Todavía quedan muchas cosas por crear.
+        </div>
+      </div>
+    </section>
+
+    <section class="section wrap" id="historia">
+      <div class="section-heading">
+        <div class="section-label">01 — Mi historia</div>
+        <div>
+          <h2>No soy una etiqueta.<br>Soy una historia.</h2>
+          <p class="section-copy">
+            Una persona no cabe en una sola descripción. Somos preguntas,
+            experiencias, contradicciones, descubrimientos y posibilidades.
+            Prefiero definirme por lo que elijo aprender, crear y aportar,
+            no por una etiqueta puesta desde afuera.
+          </p>
+          <p class="section-copy">
+            No necesito tener todas las respuestas para seguir avanzando.
+            Puedo cambiar de rumbo, empezar de nuevo y construir algo
+            significativo a mi manera.
+          </p>
+        </div>
+      </div>
+
+      <div class="manifesto">
+        <div class="eyebrow">Una declaración personal</div>
+        <h2>Mi valor no depende de tener la vida resuelta.</h2>
+        <p>
+          Tengo derecho a explorar mis ideas, desarrollar mis capacidades
+          y descubrir qué quiero hacer con mi tiempo. Mi camino no tiene
+          que parecerse al de nadie. Cada cosa que aprendo me abre una
+          posibilidad nueva.
+        </p>
+      </div>
+    </section>
+
+    <section class="section wrap" id="proyectos">
+      <div class="section-heading">
+        <div class="section-label">02 — Mi mundo</div>
+        <div>
+          <h2>Ideas que merecen convertirse en algo real.</h2>
+          <p class="section-copy">
+            Este espacio reúne las cosas que me despiertan curiosidad:
+            proyectos, conocimientos, preguntas y nuevas formas de crear.
+            No hace falta terminarlo todo hoy para empezar a construir.
+          </p>
+        </div>
+      </div>
+
+      <div class="cards">
+        <article class="card">
+          <span class="card-number">01 /</span>
+          <h3>Crear</h3>
+          <p>Transformar una idea en algo que se pueda ver, usar, escuchar o compartir.</p>
+        </article>
+
+        <article class="card">
+          <span class="card-number">02 /</span>
+          <h3>Descubrir</h3>
+          <p>Hacer preguntas, aprender cosas nuevas y buscar mi propia comprensión del mundo.</p>
+        </article>
+
+        <article class="card">
+          <span class="card-number">03 /</span>
+          <h3>Construir</h3>
+          <p>Convertir la curiosidad en habilidades, proyectos y oportunidades concretas.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="section wrap">
+      <div class="quote-section">
+        <div class="quote-mark">“</div>
+        <blockquote>
+          No tengo que demostrarle al mundo quién soy todos los días.
+          Puedo dedicar mi energía a construir la vida que quiero.
+        </blockquote>
+        <p>Una idea para recordar en los días difíciles.</p>
+      </div>
+    </section>
+
+    <section class="contact wrap" id="contacto">
+      <div class="eyebrow" style="justify-content:center">03 — Lo que viene</div>
+      <h2>La próxima página todavía está en blanco.</h2>
+      <p>
+        Y eso no es un defecto. Es espacio para nuevas ideas, nuevos
+        proyectos y decisiones que todavía están por llegar.
+      </p>
+      <div class="actions">
+        <!-- Reemplazá el enlace por tu GitHub, portfolio o red social -->
+        <a class="button" href="#inicio">Seguir construyendo ↑</a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="wrap">
+    <span>MI UNIVERSO — Una historia en construcción.</span>
+    <span>Hecho a mi manera. © <span id="year"></span></span>
+  </footer>
+
+  <script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+  </script>
+</body>
 </html>
